@@ -342,7 +342,8 @@ begin
     if (DoorSession.DoIdleCheck) and (DoorSecondsIdle > DoorSession.MaxIdle) and Assigned(DoorOnTimeOut) then DoorOnTimeOut;
 
     {Check For Idle Timeout Warning}
-    if (DoorSession.DoIdleCheck) and ((DoorSession.MaxIdle - DoorSecondsIdle) mod 60 = 1) and ((DoorSession.MaxIdle - DoorSecondsIdle) div 60 <= 5) and (Assigned(DoorOnTimeOutWarning)) then DoorOnTimeOutWarning((DoorSession.MaxIdle - DoorSecondsIdle) div 60);
+    if (DoorSession.DoIdleCheck) and ((DoorSession.MaxIdle - DoorSecondsIdle) mod 60 = 1) and ((DoorSession.MaxIdle - DoorSecondsIdle) div 60 <= 5) and (Assigned(DoorOnTimeOutWarning)) then DoorOnTimeOutWarning((DoorSession.MaxIdle - DoorSecondsIdle) div
+60);
 
     {Check For Time Up}
     if (DoorSecondsLeft < 1) and Assigned(DoorOnTimeUp) then DoorOnTimeUp;
@@ -592,7 +593,7 @@ begin
               DoorTextAttr(15);
 
               // Move up
-              DoorLiteBarIndex -= 1;
+              DoorLiteBarIndex := DoorLiteBarIndex - 1;
 
               // Draw new highlight
               DoorCursorRestore;
@@ -614,7 +615,7 @@ begin
               DoorTextAttr(15);
 
               // Move up
-              DoorLiteBarIndex += 1;
+              DoorLiteBarIndex := DoorLiteBarIndex + 1;
 
               // Draw new highlight
               DoorCursorRestore;

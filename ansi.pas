@@ -124,13 +124,13 @@ end;
 
 function AnsiTextBackground(AColour: Byte): String;
 begin
-  while (AColour > 7) do AColour -= 8;
+  while (AColour > 7) do AColour := AColour - 8;
   Result := #27 + '[' + IntToStr(40 + AnsiColours[AColour]) + 'm';
 end;
 
 function AnsiTextColour(AColour: Byte): String;
 begin
-  while (AColour > 15) do AColour -= 16;
+  while (AColour > 15) do AColour := AColour - 16;
   case AColour of
      0..7: Result := #27 + '[0;' + IntToStr(30 + AnsiColours[AColour]) + 'm' + AnsiTextBackground(TextAttr div 16);
     8..15: Result := #27 + '[1;' + IntToStr(30 + AnsiColours[AColour - 8]) + 'm';
@@ -157,7 +157,7 @@ begin
           AnsiParserState := HaveEscape;
         end else
         begin
-          Buffer += AText[I];
+          Buffer := Buffer + AText[I];
         end;
       end;
 
@@ -182,7 +182,7 @@ begin
         end else
         if (AText[I] in ['0'..'9']) then
         begin
-          AnsiBuffer += AText[I];
+          AnsiBuffer := AnsiBuffer + AText[I];
         end else
         if (AText[I] = ';') then
         begin
@@ -245,7 +245,7 @@ begin
            GotoXY(1, Y);
          end;
     'f',
-    'H': begin // CSI y ; x f or CSI ; x f or CSI y ; f - Moves the cursor to row y, column x. The values are 1-based, and default to 1 (top left corner) if omitted. A sequence such as CSI ;5f is a synonym for CSI 1;5f as well as CSI 17;f is the same as CSI 17f and CSI 17;1f
+    'H': begin // CSI y ; x f or CSI ; x f or CSI y ; f - Moves the cursor to row y, column x. The values are 1-based, and default to 1 (top left corner) if omitted. A sequence such as CSI ;5f is a synonym for CSI 1;5f as well as CSI 17;f is the same as C
            while (High(AnsiParams) < 2) do AddAnsiParam(0); // Make sure we have enough parameters
            Y := Max(1, AnsiParams[1]);
            X := Max(1, AnsiParams[2]);
@@ -262,7 +262,7 @@ begin
              25: cursoron;
            end;
          end;
-    'J': begin // CSI n J - Clears part of the screen. If n is zero (or missing), clear from cursor to end of screen. If n is one, clear from cursor to beginning of the screen. If n is two, clear entire screen (and moves cursor to upper left on MS-DOS ANSI.SYS).
+    'J': begin // CSI n J - Clears part of the screen. If n is zero (or missing), clear from cursor to end of screen. If n is one, clear from cursor to beginning of the screen. If n is two, clear entire screen (and moves cursor to upper left on MS-DOS ANS
            case AnsiParams[1] of
              0: ; // TODO ClrEos
              1: ; // TODO ClrBos

@@ -159,24 +159,24 @@ begin
       if (I = Length(AText)) then
       begin
         // End of string, nothing to do
-        I += 1;
+        I := I + 1;
       end else
       begin
         // A least one character after the `
         if (AText[I + 1] = 'r') then
         begin
           // It's `r#, which requires three characters to be deleted
-          I += 3;
+          I := I + 3;
         end else
         begin
           // Any other combo just requires two characters to be deleted
-          I += 2;
+          I := I + 2;
         end;
       end;
     end else
     begin
-      S += AText[I];
-      I += 1;
+      S := S + AText[I];
+      I := I + 1;
     end;
   end;
 
