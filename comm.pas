@@ -127,7 +127,7 @@ begin
   {$IFDEF WINDOWS}
     // Set blocking mode
     Arg := 0;
-    IOCtlSocket(FCommNumber, FIONBIO, Arg);
+    IOCtlSocket(FCommNumber, longint(FIONBIO), Arg);
   {$ENDIF}
 
   {$IFDEF COMM_SOCKET}
